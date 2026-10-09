@@ -1,8 +1,29 @@
+import { Route, Routes } from 'react-router-dom'
+import Layout from './components/Layout'
+import ProtectedRoute from './components/ProtectedRoute'
+import GuestRoute from './components/GuestRoute'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import NotFound from './pages/NotFound'
+
 function App() {
   return (
-    <div className="container">
-      <h1>EventHub</h1>
-    </div>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<div className="container"><h1>Home</h1></div>} />
+
+        <Route element={<GuestRoute />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="/my-events" element={<div className="container"><h1>My Events</h1></div>} />
+        </Route>
+
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
   )
 }
 
