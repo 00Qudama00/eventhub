@@ -4,6 +4,7 @@ import ProtectedRoute from './components/ProtectedRoute'
 import GuestRoute from './components/GuestRoute'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Events from './pages/Events'
 import NotFound from './pages/NotFound'
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<div className="container"><h1>Home</h1></div>} />
+        <Route path="/events" element={<Events />} />
 
         <Route element={<GuestRoute />}>
           <Route path="/login" element={<Login />} />
