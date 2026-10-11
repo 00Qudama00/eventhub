@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import Loader from '../components/Loader'
 import ErrorMessage from '../components/ErrorMessage'
+import RegisterButton from '../components/RegisterButton'
 import Icon from '../components/Icon'
 import {
   clearEventDetails,
@@ -164,6 +165,7 @@ function EventDetails() {
             <h3>Attend this event</h3>
             <p className="sidebar-date">{formatDate(date)} &middot; {formatTime(event)}</p>
             {isPast && <div className="alert alert-info">This event has already taken place.</div>}
+            <RegisterButton event={event} isPast={isPast} />
             {event.url && (
               <a href={event.url} target="_blank" rel="noreferrer" className="btn btn-outline btn-block">
                 Buy on Ticketmaster

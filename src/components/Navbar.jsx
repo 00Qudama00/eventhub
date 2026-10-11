@@ -2,10 +2,12 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { logout, selectCurrentUser } from '../features/auth/authSlice'
+import { selectUserRegistrations } from '../features/registrations/registrationsSlice'
 import Icon from './Icon'
 
 function Navbar() {
   const user = useSelector(selectCurrentUser)
+  const registrations = useSelector(selectUserRegistrations)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
@@ -35,7 +37,10 @@ function Navbar() {
           <NavLink to="/categories" onClick={close}>Categories</NavLink>
           {user ? (
             <>
-              <NavLink to="/my-events" onClick={close}>My Events</NavLink>
+              <NavLink to="/my-events" onClick={close}>
+                My Events
+                {registrations.length > 0 && <span className="count-badge">{registrations.length}</span>}
+              </NavLink>
               <span className="nav-user">Hi, {user.name.split(' ')[0]}</span>
               <button className="btn btn-outline btn-sm" onClick={handleLogout}>Logout</button>
             </>
