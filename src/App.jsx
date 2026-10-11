@@ -7,6 +7,7 @@ import Register from './pages/Register'
 import Home from './pages/Home'
 import Events from './pages/Events'
 import EventDetails from './pages/EventDetails'
+import Categories from './pages/Categories'
 import NotFound from './pages/NotFound'
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/events" element={<Events />} />
         <Route path="/events/:id" element={<EventDetails />} />
+        <Route path="/categories" element={<Categories />} />
 
         <Route element={<GuestRoute />}>
           <Route path="/login" element={<Login />} />
