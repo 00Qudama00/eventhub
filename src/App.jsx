@@ -8,6 +8,7 @@ import Home from './pages/Home'
 import Events from './pages/Events'
 import EventDetails from './pages/EventDetails'
 import Categories from './pages/Categories'
+import MyEvents from './pages/MyEvents'
 import NotFound from './pages/NotFound'
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
         </Route>
 
         <Route element={<ProtectedRoute />}>
-          <Route path="/my-events" element={<div className="container"><h1>My Events</h1></div>} />
+          <Route path="/my-events" element={<MyEvents />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
