@@ -5,6 +5,17 @@ import registrationsReducer from '../features/registrations/registrationsSlice'
 import uiReducer from '../features/ui/uiSlice'
 import { saveToStorage } from '../utils/storage'
 
+const logger = (storeApi) => (next) => (action) => {
+  const result = next(action)
+  if (import.meta.env.DEV) {
+    console.groupCollapsed(`[Redux] ${action.type}`)
+    console.log('payload:', action.payload)
+    console.log('new state:', storeApi.getState())
+    console.groupEnd()
+  }
+  return result
+}
+
 export const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -12,6 +23,7 @@ export const store = configureStore({
     registrations: registrationsReducer,
     ui: uiReducer,
   },
+  middleware: (getDefault) => getDefault().concat(logger),
 })
 
 let prevAuth = store.getState().auth

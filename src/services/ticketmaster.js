@@ -1,4 +1,7 @@
-const BASE_URL = 'https://app.ticketmaster.com/discovery/v2'
+// in development requests go through the vite proxy (see vite.config.js) so they are logged in the terminal
+const BASE_URL = import.meta.env.DEV
+  ? `${window.location.origin}/tm-api`
+  : 'https://app.ticketmaster.com/discovery/v2'
 const API_KEY = import.meta.env.VITE_TM_API_KEY
 
 const buildUrl = (path, params = {}) => {
@@ -26,7 +29,14 @@ const request = async (path, params) => {
     throw new Error('Ticketmaster API key is missing. Add VITE_TM_API_KEY to your .env file.')
   }
   await waitForSlot()
-  const res = await fetch(buildUrl(path, params))
+  const url = buildUrl(path, params)
+  if (import.meta.env.DEV) {
+    console.log('%c[API] GET ' + path, 'color:#4f46e5;font-weight:bold', params || {})
+  }
+  const res = await fetch(url)
+  if (import.meta.env.DEV) {
+    console.log(`[API] ${res.status} ${path}`)
+  }
   if (res.status === 429) {
     throw new Error('Too many requests to Ticketmaster. Please wait a moment and try again.')
   }
